@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git --version)",
+      "Bash(streamlit run *)",
+      "Bash(Start-Sleep -Seconds 3)",
+      "Bash(Get-Content \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-user-Desktop-260608---\\\\1dd32615-a2a1-4925-ab7e-7734617f69f9\\\\tasks\\\\budq5vwqs.output\" -Tail 10)",
+      "PowerShell(pip install streamlit 2>&1)",
+      "PowerShell(Start-Process powershell -ArgumentList \"-NoExit\", \"-Command\", \"cd 'C:\\\\Users\\\\user\\\\Desktop\\\\260608_오후'; python -m streamlit run app.py\")",
+      "PowerShell(Start-Job -ScriptBlock { python -m streamlit run \"C:\\\\Users\\\\user\\\\Desktop\\\\260608_오후\\\\app.py\" })",
+      "PowerShell(New-Item -ItemType Directory -Force \"$env:USERPROFILE\\\\.streamlit\" | Out-Null; Set-Content \"$env:USERPROFILE\\\\.streamlit\\\\credentials.toml\" \"[general]`nemail = ``\" -Encoding utf8)"
+    ]
+  }
+}
