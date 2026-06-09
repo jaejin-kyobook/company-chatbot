@@ -47,6 +47,12 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
     * { font-family: 'Noto Sans KR', sans-serif !important; }
 
+    /* 불필요한 툴바 버튼 숨기기 */
+    [data-testid="stToolbar"] { display: none !important; }
+    [data-testid="stDecoration"] { display: none !important; }
+    #MainMenu { visibility: hidden !important; }
+    footer { visibility: hidden !important; }
+
     /* ── 전체 배경 (카카오 채팅방 배경색) ── */
     .stApp { background-color: #b2c7d9 !important; }
     .block-container { padding: 1rem 2rem 5rem 2rem !important; max-width: 780px !important; }
