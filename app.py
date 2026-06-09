@@ -59,7 +59,10 @@ st.markdown("""
     header,
     footer,
     [class*="deployButton"],
-    [class*="keyboard"] { visibility: hidden !important; display: none !important; }
+    [class*="keyboard"],
+    [class*="Toolbar"],
+    [class*="toolbar"],
+    button[kind="header"] { visibility: hidden !important; display: none !important; }
 
     /* ── 전체 배경 (카카오 채팅방 배경색) ── */
     .stApp { background-color: #b2c7d9 !important; }
@@ -334,6 +337,27 @@ def render_bubble(role: str, content: str):
             <div style="font-size:28px;margin-left:8px;margin-top:2px;">🙋</div>
         </div>
         """, unsafe_allow_html=True)
+
+# ── JS로 툴바 강제 제거 ───────────────────────────────────────────────────────
+st.markdown("""
+<script>
+    function removeToolbar() {
+        const selectors = [
+            '[data-testid="stToolbar"]',
+            'header',
+            '[class*="toolbar"]',
+            '[class*="Toolbar"]',
+            '[class*="keyboard"]',
+        ];
+        selectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => el.remove());
+        });
+    }
+    removeToolbar();
+    setTimeout(removeToolbar, 500);
+    setTimeout(removeToolbar, 1500);
+</script>
+""", unsafe_allow_html=True)
 
 # ── 메인 화면 ─────────────────────────────────────────────────────────────────
 st.title("🏢 스마트 사내 지원 챗봇")
