@@ -39,6 +39,7 @@ st.set_page_config(
     page_title="스마트 사내 지원 챗봇",
     page_icon="🏢",
     layout="wide",
+    initial_sidebar_state="expanded",
     menu_items={}
 )
 
@@ -59,9 +60,12 @@ st.markdown("""
     #MainMenu,
     header { display: none !important; height: 0 !important; }
     footer { display: none !important; }
-    section[data-testid="stSidebar"] > div:first-child > div:first-child > button { display: none !important; }
-    .st-emotion-cache-h5rgaw { display: none !important; }
-    .st-emotion-cache-1dp5vir { display: none !important; }
+    /* 사이드바 접기 버튼 완전 제거 */
+    [data-testid="collapsedControl"],
+    [data-testid="stSidebarCollapsedControl"],
+    section[data-testid="stSidebar"] button,
+    .st-emotion-cache-h5rgaw,
+    .st-emotion-cache-1dp5vir,
     .eyeqlp51 { display: none !important; }
 
     /* ── 전체 배경 (카카오 채팅방 배경색) ── */
