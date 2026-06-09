@@ -53,10 +53,13 @@ st.markdown("""
     [data-testid="stDecoration"],
     [data-testid="stStatusWidget"],
     [data-testid="collapsedControl"],
+    [data-testid="stSidebarCollapsedControl"],
     .stDeployButton,
     #MainMenu,
     header,
-    footer { visibility: hidden !important; display: none !important; }
+    footer,
+    [class*="deployButton"],
+    [class*="keyboard"] { visibility: hidden !important; display: none !important; }
 
     /* ── 전체 배경 (카카오 채팅방 배경색) ── */
     .stApp { background-color: #b2c7d9 !important; }
