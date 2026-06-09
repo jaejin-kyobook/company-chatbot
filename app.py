@@ -135,7 +135,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ── 엑셀 데이터 로드 ──────────────────────────────────────────────────────────
-EXCEL_PATH = r"G:\▶총무\■ AX탐험대\FAQ 데이터.xlsx"
+EXCEL_PATH = "FAQ 데이터.xlsx"
 
 @st.cache_data
 def load_faq():
