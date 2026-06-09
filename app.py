@@ -39,6 +39,7 @@ st.set_page_config(
     page_title="스마트 사내 지원 챗봇",
     page_icon="🏢",
     layout="wide",
+    menu_items={}
 )
 
 # ── 카카오톡 스타일 CSS ───────────────────────────────────────────────────────
@@ -47,11 +48,15 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
     * { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 불필요한 툴바 버튼 숨기기 */
-    [data-testid="stToolbar"] { display: none !important; }
-    [data-testid="stDecoration"] { display: none !important; }
-    #MainMenu { visibility: hidden !important; }
-    footer { visibility: hidden !important; }
+    /* 불필요한 툴바/메뉴 전체 숨기기 */
+    [data-testid="stToolbar"],
+    [data-testid="stDecoration"],
+    [data-testid="stStatusWidget"],
+    [data-testid="collapsedControl"],
+    .stDeployButton,
+    #MainMenu,
+    header,
+    footer { visibility: hidden !important; display: none !important; }
 
     /* ── 전체 배경 (카카오 채팅방 배경색) ── */
     .stApp { background-color: #b2c7d9 !important; }
