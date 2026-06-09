@@ -60,13 +60,9 @@ st.markdown("""
     #MainMenu,
     header { display: none !important; height: 0 !important; }
     footer { display: none !important; }
-    /* 사이드바 접기 버튼 완전 제거 */
+    /* 사이드바 접기 버튼만 제거 */
     [data-testid="collapsedControl"],
-    [data-testid="stSidebarCollapsedControl"],
-    section[data-testid="stSidebar"] button,
-    .st-emotion-cache-h5rgaw,
-    .st-emotion-cache-1dp5vir,
-    .eyeqlp51 { display: none !important; }
+    [data-testid="stSidebarCollapsedControl"] { display: none !important; }
 
     /* ── 전체 배경 (카카오 채팅방 배경색) ── */
     .stApp { background-color: #b2c7d9 !important; }
