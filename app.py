@@ -1,5 +1,38 @@
 import streamlit as st
 import pandas as pd
+import gspread
+from google.oauth2.service_account import Credentials
+from datetime import datetime
+
+# ── Google Sheets 연결 ────────────────────────────────────────────────────────
+@st.cache_resource
+def get_sheet():
+    try:
+        scopes = ["https://www.googleapis.com/auth/spreadsheets"]
+        creds = Credentials.from_service_account_info(
+            st.secrets["gcp_service_account"], scopes=scopes
+        )
+        gc = gspread.authorize(creds)
+        sh = gc.open_by_url(st.secrets["sheets"]["url"])
+        worksheet = sh.sheet1
+        # 헤더가 없으면 추가
+        if worksheet.row_count == 0 or worksheet.cell(1, 1).value != "번호":
+            worksheet.append_row(["번호", "질문", "매칭여부", "카테고리", "일시"])
+        return worksheet
+    except Exception as e:
+        return None
+
+def log_question(question: str, matched: bool, category: str):
+    try:
+        ws = get_sheet()
+        if ws is None:
+            return
+        rows = ws.get_all_values()
+        no = len(rows)  # 헤더 포함
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        ws.append_row([no, question, "✅ 매칭" if matched else "❌ 미매칭", category, now])
+    except Exception:
+        pass
 
 # ── 페이지 설정 ──────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -173,6 +206,7 @@ def find_answer(query: str, category: str) -> str:
     if best_row is not None and best_score >= 2:
         answer = best_row["답변"]
         dept = best_row["담당부서"]
+        log_question(query, True, category)
         if answer and str(answer).strip():
             result = f"**📋 {best_row['질문']}**\n\n{answer}"
             if dept:
@@ -186,6 +220,7 @@ def find_answer(query: str, category: str) -> str:
                 f"> 📞 담당부서{dept_msg}로 직접 문의해 주세요."
             )
 
+    log_question(query, False, category)
     return (
         "죄송해요, 등록된 답변을 찾지 못했어요. 😢\n\n"
         "**담당 부서로 문의해 주세요:**\n"
