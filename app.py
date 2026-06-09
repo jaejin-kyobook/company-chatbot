@@ -49,20 +49,10 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
     * { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 불필요한 툴바/메뉴/버튼 전체 숨기기 */
-    [data-testid="stToolbar"],
-    [data-testid="stDecoration"],
-    [data-testid="stStatusWidget"],
-    [data-testid="collapsedControl"],
-    [data-testid="stSidebarCollapsedControl"],
-    [data-testid="stSidebarNavCollapseIcon"],
-    .stDeployButton,
-    #MainMenu,
-    header { display: none !important; height: 0 !important; }
+    /* 툴바/메뉴 숨기기 */
+    #MainMenu { display: none !important; }
     footer { display: none !important; }
-    /* 사이드바 접기 버튼만 제거 */
-    [data-testid="collapsedControl"],
-    [data-testid="stSidebarCollapsedControl"] { display: none !important; }
+    [data-testid="stToolbar"] { display: none !important; }
 
     /* ── 전체 배경 (카카오 채팅방 배경색) ── */
     .stApp { background-color: #b2c7d9 !important; }
