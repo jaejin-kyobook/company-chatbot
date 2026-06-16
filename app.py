@@ -241,7 +241,7 @@ def get_gemini_answer(query: str) -> str:
             f"답변 마지막에 '더 정확한 안내가 필요하시면 담당 부서에 문의해 주세요.' 라고 덧붙여 주세요.\n\n"
             f"질문: {query}"
         )
-        response = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+        response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
         return f"💡 **AI 답변**\n\n{response.text}"
     except Exception as e:
         return (
