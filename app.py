@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import gspread
+import google.generativeai as genai
 from google.oauth2.service_account import Credentials
 from datetime import datetime
 
@@ -228,13 +229,29 @@ def find_answer(query: str, category: str) -> str:
             )
 
     log_question(query, False, category)
-    return (
-        "죄송해요, 등록된 답변을 찾지 못했어요. 😢\n\n"
-        "**담당 부서로 문의해 주세요:**\n"
-        "- 총무팀 내선 **202**\n"
-        "- 인사팀 내선 **101**\n"
-        "- IT팀 내선 **303**"
-    )
+    return get_gemini_answer(query)
+
+def get_gemini_answer(query: str) -> str:
+    try:
+        genai.configure(api_key=st.secrets["gemini"]["api_key"])
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        prompt = (
+            f"당신은 친절한 사내 지원 챗봇입니다. "
+            f"사내 FAQ에 없는 질문이 들어왔습니다. "
+            f"일반적인 지식을 바탕으로 친절하고 간결하게 한국어로 답변해 주세요. "
+            f"답변 마지막에 '더 정확한 안내가 필요하시면 담당 부서에 문의해 주세요.' 라고 덧붙여 주세요.\n\n"
+            f"질문: {query}"
+        )
+        response = model.generate_content(prompt)
+        return f"💡 **AI 답변**\n\n{response.text}"
+    except Exception as e:
+        return (
+            "죄송해요, 등록된 답변을 찾지 못했어요. 😢\n\n"
+            "**담당 부서로 문의해 주세요:**\n"
+            "- 총무팀 내선 **202**\n"
+            "- 인사팀 내선 **101**\n"
+            "- IT팀 내선 **303**"
+        )
 
 # ── 세션 상태 초기화 ──────────────────────────────────────────────────────────
 if "messages" not in st.session_state:
