@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import gspread
-import google.generativeai as genai
+from google import genai
 from google.oauth2.service_account import Credentials
 from datetime import datetime
 
@@ -233,8 +233,7 @@ def find_answer(query: str, category: str) -> str:
 
 def get_gemini_answer(query: str) -> str:
     try:
-        genai.configure(api_key=st.secrets["gemini"]["api_key"])
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        client = genai.Client(api_key=st.secrets["gemini"]["api_key"])
         prompt = (
             f"당신은 친절한 사내 지원 챗봇입니다. "
             f"사내 FAQ에 없는 질문이 들어왔습니다. "
@@ -242,7 +241,7 @@ def get_gemini_answer(query: str) -> str:
             f"답변 마지막에 '더 정확한 안내가 필요하시면 담당 부서에 문의해 주세요.' 라고 덧붙여 주세요.\n\n"
             f"질문: {query}"
         )
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
         return f"💡 **AI 답변**\n\n{response.text}"
     except Exception as e:
         return (
